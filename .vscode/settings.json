@@ -10,7 +10,7 @@
   // Excluir carpetas innecesarias del explorador
   "files.exclude": {
     "**/__pycache__": true,
-    "**/venv": true,
+    "**/.venv": true,
     "**/*.pyc": true
   },
 
