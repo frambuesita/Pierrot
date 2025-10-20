@@ -1,6 +1,5 @@
 from src.classes import *
 from src.functions import *
-
 # 1º: generar la deck (funcion load_deck) 
 deck = load_deck()
 
@@ -13,6 +12,6 @@ hand.show_hand()
 
 #3º: pasarle el analizador a la mano
 potencial_mano = analyze(hand)
-
+print("Potencial de la mano:", potencial_mano)
 
 
