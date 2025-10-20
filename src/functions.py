@@ -1,10 +1,12 @@
-import json
-from collections import Counter
-##################################################
-############## CODIGO SECRETO ####################
-##################################################
+''' 
+Significados especiales de la devolución de las funciones de comprobación
 # 0 : LA MANO ES DE LO QUE SEA
 # 6 : LA MANO ES IMPOSIBLE QUE SEA DE LO Q SEA
+'''
+
+import json
+from collections import Counter
+
 
 # Funcion para recorrer el deck.json de la carpeta database
 def load_deck():
