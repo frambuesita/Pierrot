@@ -1,2 +1,3 @@
 https://pypi.org/project/scikit-fuzzy/
 https://scikit-fuzzy.readthedocs.io/en/latest/
+https://docs.python.org/3/library/collections.html
