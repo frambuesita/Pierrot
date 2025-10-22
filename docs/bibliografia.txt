@@ -1,0 +1,2 @@
+https://pypi.org/project/scikit-fuzzy/
+https://scikit-fuzzy.readthedocs.io/en/latest/
