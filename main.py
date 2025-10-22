@@ -2,13 +2,7 @@ from src.classes import *
 from src.functions import *
 from logic.fuzzy import compute_bet
 
-
-# 
 deck = load_deck()
-
-
-
-# 2º: cargar mano y asignarle cartas 
 
 Pierrot_hand = Hand() 
 community_hand = Hand() # Cartas en la mesa que pueden utilizar todos los jugadores
@@ -32,7 +26,7 @@ print("\n\nCartas totales de Pierrot (Personales + mesa):")
 Pierrot_hand.add_community_cards(community_cards)
 Pierrot_hand.show_hand()
 
-#pierrot_potential = analyze(Pierrot_hand)
+pierrot_potential = analyze(Pierrot_hand.cards_list)
 #table_potential = analyze(community_hand)
 
 print(compute_bet(100, 0))

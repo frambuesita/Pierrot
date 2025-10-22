@@ -44,7 +44,9 @@ def analyze(hand):
                    flush_value * flush_prob + straight_value * straight_prob + threeofakind_value * threeofakind_prob + twopair_value * twopair_prob + par_value * par_prob + highcard_value * highcard_prob) / 9
 
     return total_value
+
 def isRoyalFlush(card_list):
+    return_value = 0
     #comprobar si el palo es el mismo en todas
     if isFlush(card_list) == 6:
         return_value = 6
@@ -56,7 +58,8 @@ def isRoyalFlush(card_list):
             card_values.append(card.value)
 
         return_value = set(desired_values) - set(card_values) #cuenta cuantos elementos de la lista de desired_values no estan en card_values
-    
+        return_value = len(return_value)
+
     return return_value
 
 def isStraightFlush(card_list):
@@ -69,10 +72,10 @@ def isStraightFlush(card_list):
         for card in card_list:
             card_values.append(card.value)
         
-        contador = 5
+        contador = 4
         card_values.sort()
         for i in range(len(card_values)-1): #Idea: despues de ordenar, si el valor siguiente - el actual da 1, no hace nada, si no se le resta 1 al contador. El ultimo no se hace
-            if card_values[i+1] - card_values[i] != 1:
+            if card_values[i+1] - card_values[i] == 1:
                 contador -= 1
         return_value = contador
 
@@ -104,9 +107,10 @@ def isFullHouse(card_list):
     repeticiones = list(contador.values())
     repeticiones.sort()
 
-    for i in range(repeticiones):
-        if repeticiones[i] == 3: # Si ya tenemos el trio veremos si atras tenemos un par
-            if repeticiones[i - 1] == 2: #Si tambien tenemos par tenemos un full house, asi que el return_value sera 1 
+# DEBEMOS RECORRER EN SENTIDO CONTRARIO ESTO, TODO
+    for i in range(len(repeticiones)):
+        if repeticiones[i] >= 3: # Si ya tenemos el trio veremos si atras tenemos un par
+            if repeticiones[i - 1] >= 2: #Si tambien tenemos par tenemos un full house, asi que el return_value sera 1 
                 return_value = 0
             else: #Si no, será 1
                 return_value = 1 
@@ -144,7 +148,7 @@ def isStraight(card_list):
     contador = 5
     card_values.sort()
     for i in range(len(card_values)-1): #Idea: despues de ordenar, si el valor siguiente - el actual da 1, no hace nada, si no se le resta 1 al contador. El ultimo no se hace
-        if card_values[i+1] - card_values[i] != 1:
+        if card_values[i+1] - card_values[i] == 1:
             contador -= 1
     return_value = contador
     
@@ -170,6 +174,7 @@ def isThreeofaKind(card_list):
 
     return return_value
 
+# HACER EL TWO PAIR COMO HICIMOS EL FULL HOUSE TODO (este esta hecho como la mierda)
 def isTwoPairs(card_list):
     return_value = 0
     card_values = []
