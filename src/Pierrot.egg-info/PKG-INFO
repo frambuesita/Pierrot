@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: Pierrot
+Version: 0.1
+Author: David Rodríguez Dagas, Adrián Pérez Domńiguez
+Requires-Python: >=3.11
+Requires-Dist: scikit-fuzzy==0.4.2
+Requires-Dist: scipy>=1.16.2
+Requires-Dist: networkx>=3.5
+Requires-Dist: numpy>=2.3.4
+Requires-Dist: pytest>=8.4.2
+Requires-Dist: disutils

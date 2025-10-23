@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+src/__init__.py
+src/classes.py
+src/Pierrot.egg-info/PKG-INFO
+src/Pierrot.egg-info/SOURCES.txt
+src/Pierrot.egg-info/dependency_links.txt
+src/Pierrot.egg-info/requires.txt
+src/Pierrot.egg-info/top_level.txt
+tests/test_analizer.py
