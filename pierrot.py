@@ -2,6 +2,7 @@ from src.classes import *
 from src.functions import *
 from logic.fuzzy import compute_bet
 
+
 deck = load_deck()
 
 Pierrot_hand = Hand() 
