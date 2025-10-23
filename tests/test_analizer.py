@@ -8,8 +8,8 @@ Modo de ejecución de los tests:
     - Ejecución normal: ❯ pytest
     - Ejecución resumida (que para cada test diga PASSED o FAILED): ❯ pytest -v
 
+    
 Pego aqui los emoticonos de cada palo porque puede estar guay usarlos por ahi en algun momento:
-
 Spades (Espadas): ♠
 Hearts (Corazones): ♥
 Diamonds (Diamantes): ♦
