@@ -1,19 +1,19 @@
-''' 
-Significados especiales de la devolución de las funciones de comprobación
+
+#Significados especiales de la devolución de las funciones de comprobación
 # 0 : LA MANO ES DE LO QUE SEA
 # 6 : LA MANO ES IMPOSIBLE QUE SEA DE LO Q SEA
-'''
+
 
 import json
 from collections import Counter
 
 
-# Funcion para recorrer el deck.json de la carpeta database
+# Funcion para cargar todas las cartas de deck.json y las devolverlas como una lista de diccionarios.
 def load_deck():
-    """Carga todas las cartas de deck.json y las devuelve como una lista de diccionarios."""
     with open('database/deck.json', "r") as f:
         deck = json.load(f)
     return [card for card in deck.values()]
+
 
 def analyze(hand):
     #calcular, dado una mano de cartas, la probabilidad de cada tipo de mano
@@ -46,6 +46,13 @@ def analyze(hand):
     return total_value
 
 def isRoyalFlush(card_list):
+
+    """
+    Las comprobaciones de si algo es escalera y hay 5 cartas del mismo palo son independientes, puede haber 5 cartas del mismo palo
+    y que estas no sean expresamente [10,11,12,13,14], hacer chequeo conjunto
+    
+    """
+
     return_value = 0
     #comprobar si el palo es el mismo en todas
     if isFlush(card_list) == 6:
@@ -62,7 +69,14 @@ def isRoyalFlush(card_list):
 
     return return_value
 
+
 def isStraightFlush(card_list):
+
+    """
+    El mismo problema, puede haber 5 cartas del mismo palo pero no tiene por que ser justo las que forman una escalera ya que las dos 
+    comprobaciones se hacen de forma independiente
+    """
+
     return_value = 0
     
     if isFlush(card_list) == 6:
@@ -81,6 +95,7 @@ def isStraightFlush(card_list):
 
     return return_value
 
+
 def isFourofaKind(card_list):
     return_value = 0
     card_values = []
@@ -96,6 +111,7 @@ def isFourofaKind(card_list):
         return_value = 4 - repetidos
 
     return return_value
+
 
 def isFullHouse(card_list):
     return_value = 0
@@ -125,7 +141,14 @@ def isFullHouse(card_list):
     return return_value
 
 def isFlush(card_list):
+
+    """
+    El return value solo se usa si devuelve = 6, en otro caso, el valor devuelto es indiferente (y está bien, porque contaremos el número de cartas
+    que faltan del [10, 11, 12, 13, 14] sin tener en cuenta si la carta del palo dado ya ha salido o no)
+    """
+
     return_value = 0
+
     card_suits = []
     for card in card_list:
         card_suits.append(card.suit)

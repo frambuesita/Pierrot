@@ -16,7 +16,7 @@ Diamonds (Diamantes): ♦
 Clubs (Tréboles): ♣
 """
 
-# ========== Instancias de Card() para de carta de la baraja para los tests ==========
+# ====================== Instancias de Card() para de carta de la baraja para los tests ======================
 ace_of_spades = Card("Spades", "Ace", 14)
 two_of_spades = Card("Spades", "2", 2)
 three_of_spades = Card("Spades", "3", 3)
@@ -73,12 +73,32 @@ jack_of_hearts = Card("Hearts", "Jack", 11)
 queen_of_hearts = Card("Hearts", "Queen", 12)
 king_of_hearts = Card("Hearts", "King", 13)
 
-# ========== Tests ==========
+# ====================== Tests ======================
 
 # Reminder: 
 #   return 0 = You've already got the hand you wanted
 #   return 6 = You can't get this hand with your actual cards
 
 def test_isRoyalFlush():
-    assert isRoyalFlush([ace_of_clubs, six_of_diamonds, eight_of_clubs, two_of_hearts, jack_of_diamonds]) == 6
+    # caso/s válido/s
     assert isRoyalFlush([ace_of_clubs, queen_of_clubs, jack_of_clubs, king_of_clubs, ten_of_clubs]) == 0
+    assert isRoyalFlush([nine_of_diamonds, queen_of_spades, three_of_hearts, ace_of_spades, ten_of_spades, king_of_spades, jack_of_spades]) == 0
+    # caso/s de prueba en que faltan x cartas
+    assert isRoyalFlush([ace_of_clubs, six_of_diamonds, eight_of_clubs, two_of_hearts, jack_of_diamonds]) == 6
+
+    # IMPORTANTE: hacer un remake al isRoyalFlush, caso de fallo
+    assert isRoyalFlush([ace_of_clubs, queen_of_clubs, jack_of_clubs, king_of_clubs, ten_of_diamonds, two_of_clubs]) == 1
+
+
+def test_isStraightFlush():
+    # Primero arreglar el algoritmo
+    pass
+
+
+def test_isFourOfaKind():
+    # caso/s válido/s
+    assert isFourofaKind([seven_of_clubs, seven_of_diamonds, seven_of_hearts, seven_of_spades, ace_of_diamonds]) == 0
+
+
+def test_isFullHouses():
+    pass
