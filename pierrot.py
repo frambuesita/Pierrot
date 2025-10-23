@@ -1,5 +1,5 @@
 from src.classes import *
-from src.functions import *
+from logic.analyzer import *
 from logic.fuzzy import compute_bet
 
 
@@ -30,6 +30,6 @@ Pierrot_hand.show_hand()
 #pierrot_potential = analyze(Pierrot_hand.cards_list)
 #table_potential = analyze(community_hand)
 
-print(compute_bet(60, 80))
+print(compute_bet(95, 80))
 
 

@@ -1,5 +1,5 @@
 import pytest
-from src.functions import prueba
+from logic.analyzer import prueba
 
 @pytest.fixture
 def test_1():
