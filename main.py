@@ -26,9 +26,9 @@ print("\n\nCartas totales de Pierrot (Personales + mesa):")
 Pierrot_hand.add_community_cards(community_cards)
 Pierrot_hand.show_hand()
 
-pierrot_potential = analyze(Pierrot_hand.cards_list)
+#pierrot_potential = analyze(Pierrot_hand.cards_list)
 #table_potential = analyze(community_hand)
 
-print(compute_bet(100, 0))
+print(compute_bet(60, 80))
 
 
