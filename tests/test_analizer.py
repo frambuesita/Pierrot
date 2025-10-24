@@ -98,7 +98,10 @@ def test_isStraightFlush():
 def test_isFourOfaKind():
     # caso/s válido/s
     assert isFourofaKind([seven_of_clubs, seven_of_diamonds, seven_of_hearts, seven_of_spades, ace_of_diamonds]) == 0
+    # caso/s de prueba en que faltan x cartas
+    assert isFourofaKind([six_of_diamonds, three_of_hearts, three_of_clubs, four_of_clubs]) == 2
 
 
-def test_isFullHouses():
-    pass
+def test_isFullHouse():
+    # caso/s válido/s
+    assert isFullHouse([ten_of_hearts, king_of_spades, three_of_spades, king_of_diamonds, eight_of_diamonds, ten_of_clubs, king_of_hearts]) == 0
