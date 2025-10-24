@@ -27,17 +27,17 @@ for i in range(ITERATIONS):
     sleep(0.005)
 
 print("\n[SISTEMA] Pierrot inicializado.\n")
-pb_baraja = ProgressBar(ITERATIONS, text="Generando baraja")
+pb_baraja = ProgressBar(ITERATIONS, text="Generando baraja....")
 for i in range(52):
     pb_baraja.update(i)
-    sleep(0.05)
+    sleep(0.01)
 
-pb_reparto = ProgressBar(ITERATIONS, text="Repartiendo cartas")
+pb_reparto = ProgressBar(ITERATIONS, text="Repartiendo cartas....")
 for i in range(ITERATIONS):
     pb_reparto.update(i)
-    sleep(0.05)
+    sleep(0.01)
 
-print("\nBaraja generada y cartas repartidas.\n")
+print("\n[CRUPIER] Baraja generada y cartas repartidas.\n")
 deck = load_deck()
 
 Pierrot_hand = Hand() 
@@ -51,19 +51,50 @@ community_cards = community_hand.get_hand()
 for i in range(0, 2):
     Pierrot_hand.add_card(deck)
 
-print("Mesa:")
+sleep(1)
+print("Cartas de la mesa:")
 community_hand.show_hand()
-print("\n\nCartas personales de Pierrot:")
+
+sleep(1)
+print("\nCartas personales de Pierrot:")
 Pierrot_hand.show_hand()
 
+print("\n") 
+pb_concatenar = ProgressBar(ITERATIONS, text="Concatenando cartas de Pierrot y la mesa....")
+for i in range(ITERATIONS):
+    pb_concatenar.update(i)
+    sleep(0.001)
+print("\n[SISTEMA] Cartas concatenadas.\n")
 
-print("\n\nCartas totales de Pierrot (Personales + mesa):")
+sleep(1)
+print("Cartas totales de Pierrot (Personales + mesa):")
 Pierrot_hand.add_community_cards(community_cards)
 Pierrot_hand.show_hand()
 
+print("\n")
+pb_analisis = ProgressBar(ITERATIONS, text="Analizando potencial de la mano de Pierrot....")
+for i in range(ITERATIONS):
+    pb_analisis.update(i)
+    sleep(0.01)
+pb_analisis2 = ProgressBar(ITERATIONS, text="Analizando potencial de la mano comunitaria....")
+for i in range(ITERATIONS):
+    pb_analisis2.update(i)
+    sleep(0.01)
+
 #pierrot_potential = analyze(Pierrot_hand.cards_list)
 #table_potential = analyze(community_hand)
-bet = compute_bet(95, 20)
-print("[PIERROT] Pierrot apuesta: ", round(bet, 2), "%.\n")
+pierrot_potential = 95
+table_potential = 20
+print("\n[SISTEMA] Análisis completo.")
+print("Potencial de la mano de Pierrot: ", pierrot_potential, "%.")
+print("Potencial de la mano comunitaria: ", table_potential, "%.\n")
+
+pb_logica = ProgressBar(ITERATIONS, text="Calculando apuesta de Pierrot mediante lógica difusa....")
+for i in range(ITERATIONS):
+    pb_logica.update(i)
+    sleep(0.01)
+
+bet = compute_bet(pierrot_potential, table_potential)
+print("\n[PIERROT] Pierrot apuesta: ", round(bet, 2), "%.\n")
 
 
