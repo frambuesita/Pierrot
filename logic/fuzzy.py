@@ -83,5 +83,3 @@ def compute_bet(pierrot_value, rival_value):
 
     betting_simulation.compute()
     return betting_simulation.output['bet']
-
-print(compute_bet(60, 90))
