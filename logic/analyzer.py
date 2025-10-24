@@ -59,36 +59,39 @@ def isRoyalFlush(card_list):
     cards_values = [card.value for card in mapped_cards if card.suit == mode]
     remaining_card_values = set(remaining_card_values) - set(cards_values)
 
-    if len(card_list) + len(remaining_card_values) > 7: # Si me faltan tantas cartas que en las que me faltan para 7 no podría conseguir la mano
+    # Si me faltan tantas cartas que en las que me faltan para 7 no podría conseguir la mano
+    if len(card_list) + len(remaining_card_values) > 7: 
         return_value = 6 
     else:
-        return_value = len(remaining_card_values) #Devolvemos el número de cartas que faltan para tener Royal Flush
+        return_value = len(remaining_card_values) # Número de cartas para tener Royal Flush
     return return_value
 
 
 def isStraightFlush(card_list):
-
-    """
-    El mismo problema, puede haber 5 cartas del mismo palo pero no tiene por que ser justo las que forman una escalera ya que las dos 
-    comprobaciones se hacen de forma independiente
-    """
-
     return_value = 0
-    
-    if isFlush(card_list) == 6:
-        return_value = 6
-    else:
-        card_values = []
-        for card in card_list:
-            card_values.append(card.value)
-        
-        contador = 4
-        card_values.sort()
-        for i in range(len(card_values)-1): #Idea: despues de ordenar, si el valor siguiente - el actual da 1, no hace nada, si no se le resta 1 al contador. El ultimo no se hace
-            if card_values[i+1] - card_values[i] == 1:
-                contador -= 1
-        return_value = contador
+    min_missing_values = 4
 
+    cards_suit = [card.suit for card in card_list]
+    counter = Counter(cards_suit)
+    mode = max(counter, key=counter.get) #El palo más repetido
+    cards_values = [card.value for card in card_list if card.suit == mode]
+    #Ordenación y eliminación de duplicados
+    cards_values = sorted(cards_values)
+    
+    # Para cada valor, veremos cuantos de los siguientes valores están en la mano y escogeremos el que más cerca esté de escalera
+    # e.j: Tenemos un as (1), por lo que se comprueban [2, 3, 4, 5] para ver cuales están en la mano y determinar cuanto queda para
+    # hacer una escalera desde 1
+    for value in cards_values:
+        missing_cards = 4 
+        for next_value in range(value + 1, value + 5):
+            print(next_value)
+            if next_value in cards_values:
+                missing_cards -= 1
+                print("MISSINGS")
+                print(missing_cards)
+        min_missing_values = min(missing_cards, min_missing_values)
+    
+    return_value = min_missing_values # Para estandarizar nomenclatura
     return return_value
 
 

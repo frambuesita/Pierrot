@@ -91,8 +91,7 @@ def test_isRoyalFlush():
 
 
 def test_isStraightFlush():
-    # Primero arreglar el algoritmo
-    pass
+    assert isStraightFlush([ace_of_clubs, queen_of_clubs, queen_of_hearts , jack_of_clubs, king_of_clubs, ten_of_clubs]) == 0
 
 
 def test_isFourOfaKind():
