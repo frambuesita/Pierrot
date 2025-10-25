@@ -1,8 +1,8 @@
-
-#Significados especiales de la devolución de las funciones de comprobación
+# ***************************************************************************************
+# Significados especiales de la devolución de las funciones de comprobación
 # 0 : LA MANO ES DE LO QUE SEA
-# 6 : LA MANO ES IMPOSIBLE QUE SEA DE LO Q SEA
-
+# 6 : YA NO SE PUEDE ALCANZAR LA MANO CON LAS CARTAS ACTUALES
+# ***************************************************************************************
 
 import json
 from collections import Counter
@@ -46,53 +46,52 @@ def analyze(hand):
     return total_value
 
 def isRoyalFlush(card_list):
-
-    """
-    Las comprobaciones de si algo es escalera y hay 5 cartas del mismo palo son independientes, puede haber 5 cartas del mismo palo
-    y que estas no sean expresamente [10,11,12,13,14], hacer chequeo conjunto
-    
-    """
-
     return_value = 0
-    #comprobar si el palo es el mismo en todas
-    if isFlush(card_list) == 6:
-        return_value = 6
+
+    # Tomamos las cartas que tengan value > 10 (es decir, que sean un [10, 'jack', 'queen', 'king' o 'ace'])
+    mapped_cards = [i for i in card_list if i.value >= 10]
+
+    cards_suit = [card.suit for card in mapped_cards]
+    counter = Counter(cards_suit)
+    mode = max(counter, key=counter.get) #El palo más repetido
+
+    remaining_card_values = [10, 11, 12, 13, 14]
+    cards_values = [card.value for card in mapped_cards if card.suit == mode]
+    remaining_card_values = set(remaining_card_values) - set(cards_values)
+
+    # Si me faltan tantas cartas que en las que me faltan para 7 no podría conseguir la mano
+    if len(card_list) + len(remaining_card_values) > 7: 
+        return_value = 6 
     else:
-        # comprobar si los valores de los simbolos, ordenados, son [10, 11, 12, 13, 14]
-        card_values = []
-        desired_values = [10,11,12,13,14]
-        for card in card_list:
-            card_values.append(card.value)
-
-        return_value = set(desired_values) - set(card_values) #cuenta cuantos elementos de la lista de desired_values no estan en card_values
-        return_value = len(return_value)
-
+        return_value = len(remaining_card_values) # Número de cartas para tener Royal Flush
     return return_value
 
 
 def isStraightFlush(card_list):
-
-    """
-    El mismo problema, puede haber 5 cartas del mismo palo pero no tiene por que ser justo las que forman una escalera ya que las dos 
-    comprobaciones se hacen de forma independiente
-    """
-
     return_value = 0
-    
-    if isFlush(card_list) == 6:
-        return_value = 6
-    else:
-        card_values = []
-        for card in card_list:
-            card_values.append(card.value)
-        
-        contador = 4
-        card_values.sort()
-        for i in range(len(card_values)-1): #Idea: despues de ordenar, si el valor siguiente - el actual da 1, no hace nada, si no se le resta 1 al contador. El ultimo no se hace
-            if card_values[i+1] - card_values[i] == 1:
-                contador -= 1
-        return_value = contador
+    min_missing_values = 4
 
+    cards_suit = [card.suit for card in card_list]
+    counter = Counter(cards_suit)
+    mode = max(counter, key=counter.get) #El palo más repetido
+    cards_values = [card.value for card in card_list if card.suit == mode]
+    #Ordenación y eliminación de duplicados
+    cards_values = sorted(cards_values)
+    
+    # Para cada valor, veremos cuantos de los siguientes valores están en la mano y escogeremos el que más cerca esté de escalera
+    # e.j: Tenemos un as (1), por lo que se comprueban [2, 3, 4, 5] para ver cuales están en la mano y determinar cuanto queda para
+    # hacer una escalera desde 1
+    for value in cards_values:
+        missing_cards = 4 
+        for next_value in range(value + 1, value + 5):
+            print(next_value)
+            if next_value in cards_values:
+                missing_cards -= 1
+                print("MISSINGS")
+                print(missing_cards)
+        min_missing_values = min(missing_cards, min_missing_values)
+    
+    return_value = min_missing_values # Para estandarizar nomenclatura
     return return_value
 
 
@@ -137,29 +136,6 @@ def isFullHouse(card_list):
                 return_value = 4
 
     #faltaria meter la situacion que haria imposible hacer un full house, pero no se me termina de ocurrir
-
-    return return_value
-
-def isFlush(card_list):
-
-    """
-    El return value solo se usa si devuelve = 6, en otro caso, el valor devuelto es indiferente (y está bien, porque contaremos el número de cartas
-    que faltan del [10, 11, 12, 13, 14] sin tener en cuenta si la carta del palo dado ya ha salido o no)
-    """
-
-    return_value = 0
-
-    card_suits = []
-    for card in card_list:
-        card_suits.append(card.suit)
-    
-    contador = Counter(card_suits)
-    repetidos = max(contador.values())
-
-    if len(card_suits) - repetidos > 2:
-        return_value = 6
-    else: 
-        return_value = 5 - repetidos
 
     return return_value
 

@@ -3,6 +3,7 @@ from logic.analyzer import analyze, load_deck
 from logic.fuzzy import compute_bet
 from ezbar import ProgressBar
 from time import sleep
+
 # Creamos una portada de Pierrot
 title = """   
  ███████████   ███                                         █████        
@@ -21,6 +22,7 @@ sleep(2)
 
 ITERATIONS = 100
 pb_pierrot = ProgressBar(ITERATIONS, text="Inicializando Pierrot....")
+
 #Fase 1 de juego: Generación de baraja y reparto de cartas
 for i in range(ITERATIONS):
     pb_pierrot.update(i)
