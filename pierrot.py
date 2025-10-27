@@ -1,4 +1,4 @@
-from src.classes import Card, Hand
+from src.classes import Hand
 from logic.analyzer import analyze, load_deck
 from logic.fuzzy import compute_bet
 from ezbar import ProgressBar
