@@ -25,7 +25,7 @@ def analyze(hand):
     straight_prob = (1 / isStraight(hand) * 10) if isStraight(hand) != 6 else 0
     threeofakind_prob = (1 / isThreeofaKind(hand) * 13) if isThreeofaKind(hand) != 6 else 0
     twopair_prob = (1 / isTwoPairs(hand) * 13) if isTwoPairs(hand) != 6 else 0
-    par_prob = (1 / isPar(hand) * 13) if isPar(hand) != 6 else 0
+    par_prob = (1 / isPair(hand) * 13) if isPair(hand) != 6 else 0
     highcard_prob = 1
 
     #insertar en variables el valor de cada mano completa (asignado a criterio personal)
@@ -143,20 +143,26 @@ def isFullHouse(card_list):
     repeticiones = list(contador.values())
     repeticiones.sort()
 
-# DEBEMOS RECORRER EN SENTIDO CONTRARIO ESTO, TODO
-    for i in range(len(repeticiones)):
-        if repeticiones[i] >= 3: # Si ya tenemos el trio veremos si atras tenemos un par
-            if repeticiones[i - 1] >= 2: #Si tambien tenemos par tenemos un full house, asi que el return_value sera 1 
-                return_value = 0
-            else: #Si no, será 1
-                return_value = 1 
+    if repeticiones[-1] >= 3: 
+        if len(repeticiones) > 1 and repeticiones[-2] >= 2:
+            return_value = 0
+        elif len(repeticiones) > 1:
+            return_value = 1
         else:
-            if repeticiones[i] == 2:
-                return_value = 3
+            return_value = 2
+    else:
+        if repeticiones[-1] == 2:
+            if len(repeticiones) > 1 and repeticiones[-2] == 2:
+                return_value = 1
+            elif len(repeticiones) > 1:
+                return_value = 2
             else:
-                return_value = 4
+                return_value = 3
+        else:
+            return_value = 3
 
-    #faltaria meter la situacion que haria imposible hacer un full house, pero no se me termina de ocurrir
+    if len(card_values) + return_value > 7:
+        return_value = 6
 
     return return_value
 
@@ -172,6 +178,23 @@ def isStraight(card_list):
             contador -= 1
     return_value = contador
     
+
+    return return_value
+
+def isFlush(card_list):
+    return_value = 0
+
+    cards_suit = [card.suit for card in card_list]
+    counter = Counter(cards_suit)
+    mode = max(counter.values())
+    missing_cards = 5 - mode
+    if len(card_list) + missing_cards > 7:
+        return_value = 6
+    else: 
+        return_value = missing_cards
+    
+    if return_value < 0:
+        return_value = 0
 
     return return_value
 
@@ -194,7 +217,6 @@ def isThreeofaKind(card_list):
 
     return return_value
 
-# HACER EL TWO PAIR COMO HICIMOS EL FULL HOUSE TODO (este esta hecho como la mierda)
 def isTwoPairs(card_list):
     return_value = 0
     card_values = []
@@ -202,23 +224,28 @@ def isTwoPairs(card_list):
         card_values.append(card.value)
 
     contador = Counter(card_values)
-    repetidos = max(contador.values())
+    repetidos = list(contador.values())
+    repetidos.sort()
 
-    repetidos_pares = 0
-    for count in contador.values():
-        if count >= 2:
-            repetidos_pares += 1
-    if repetidos_pares == 2:
-        return_value = 0
-    elif repetidos_pares == 1:
-        return_value = 1
-    elif len(card_values) - (repetidos_pares * 2) > 3:
-      return_value = 6
+    if repetidos[-1] >= 2:
+        if len(repetidos) > 1 and repetidos[-2] >= 2:
+            return_value = 0
+        elif len(repetidos) > 1:
+            return_value = 1
+        else:
+            return_value = 2
     else:
-        return_value = 3
+        if len(repetidos) == 1:
+            return_value = 3
+        else:
+            return_value = 2
+    
+    if len(card_values) + return_value > 7:
+        return_value = 6
+
     return return_value
 
-def isPar(card_list):
+def isPair(card_list):
     return_value = 0
     card_values = []
     for card in card_list:
@@ -232,7 +259,7 @@ def isPar(card_list):
     else:
         return_value = 2 - repetidos
     
-    if repetidos > 2: 
+    if len(card_list) == 7 and return_value == 1: 
         return_value = 6
 
     return return_value
