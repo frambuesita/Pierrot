@@ -52,8 +52,12 @@ def isRoyalFlush(card_list):
     mapped_cards = [i for i in card_list if i.value >= 10]
 
     cards_suit = [card.suit for card in mapped_cards]
-    counter = Counter(cards_suit)
-    mode = max(counter, key=counter.get) #El palo más repetido
+
+    try: 
+        counter = Counter(cards_suit)
+        mode = max(counter, key=counter.get) #El palo más repetido
+    except ValueError:
+        mode = None #Evitar error si la mano no tiene cartas con value > 10
 
     remaining_card_values = [10, 11, 12, 13, 14]
     cards_values = [card.value for card in mapped_cards if card.suit == mode]
@@ -84,11 +88,8 @@ def isStraightFlush(card_list):
     for value in cards_values:
         missing_cards = 4 
         for next_value in range(value + 1, value + 5):
-            print(next_value)
             if next_value in cards_values:
                 missing_cards -= 1
-                print("MISSINGS")
-                print(missing_cards)
         min_missing_values = min(missing_cards, min_missing_values)
     
     return_value = min_missing_values # Para estandarizar nomenclatura
