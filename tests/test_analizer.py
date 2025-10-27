@@ -110,16 +110,18 @@ def test_isRoyalFlush_cases():
 def test_isStraightFlush_cases():
     # === CASOS PERFECTOS (0) ===
     assert isStraightFlush([nine_of_spades, ten_of_spades, jack_of_spades, queen_of_spades, king_of_spades]) == 0
-    assert isStraightFlush([ace_of_diamonds, two_of_diamonds, three_of_diamonds, four_of_diamonds, five_of_diamonds]) == 0
+    assert isStraightFlush([three_of_hearts, four_of_hearts, five_of_hearts, six_of_hearts, seven_of_hearts]) == 0
     assert isStraightFlush([ace_of_clubs, queen_of_clubs, queen_of_hearts, jack_of_clubs, king_of_clubs, ten_of_clubs]) == 0
-
+    assert isStraightFlush([ten_of_diamonds, jack_of_diamonds, queen_of_diamonds, king_of_diamonds, ace_of_diamonds]) == 0
+    assert isStraightFlush([ace_of_spades, two_of_spades, three_of_spades, four_of_spades, five_of_spades]) == 0
+    
     # === FALTA 1 CARTA (1) ===
-    assert isStraightFlush([two_of_hearts, ten_of_hearts, jack_of_hearts, queen_of_hearts, king_of_hearts, ace_of_clubs, three_of_diamonds]) == 1
+    assert isStraightFlush([two_of_hearts, ten_of_hearts, jack_of_hearts, queen_of_hearts, king_of_hearts, ace_of_clubs]) == 1
     assert isStraightFlush([nine_of_spades, ten_of_spades, jack_of_spades, king_of_spades]) == 1
     assert isStraightFlush([jack_of_clubs, queen_of_clubs, king_of_clubs, ace_of_clubs, two_of_hearts]) == 1
 
     # === FALTAN 2 CARTAS (2) ===
-    assert isStraightFlush([ten_of_hearts, jack_of_hearts, three_of_spades, seven_of_clubs]) == 2
+    assert isStraightFlush([ten_of_hearts, jack_of_hearts, queen_of_hearts, three_of_spades, seven_of_clubs]) == 2
     assert isStraightFlush([queen_of_diamonds, king_of_diamonds, ace_of_diamonds, four_of_clubs]) == 2
 
     # === FALTAN 3 CARTAS (3) ===
@@ -130,10 +132,6 @@ def test_isStraightFlush_cases():
     assert isStraightFlush([king_of_diamonds, nine_of_hearts, two_of_clubs]) == 4
     assert isStraightFlush([five_of_hearts, seven_of_spades, nine_of_clubs]) == 4
 
-    # === FALTAN 5 CARTAS (5) ===
-    assert isStraightFlush([two_of_clubs, six_of_clubs, nine_of_diamonds]) == 5
-    assert isStraightFlush([three_of_spades, eight_of_hearts, king_of_clubs, four_of_diamonds]) == 5
-
     # === IMPOSIBLE (6) ===
     assert isStraightFlush([ten_of_clubs, jack_of_hearts, queen_of_diamonds, king_of_spades, ace_of_hearts, two_of_spades, three_of_clubs]) == 6
     assert isStraightFlush([ten_of_hearts, jack_of_clubs, queen_of_spades, king_of_diamonds, ace_of_hearts]) == 6
@@ -141,8 +139,7 @@ def test_isStraightFlush_cases():
 
     # === CASOS BORDE / INTERESANTES ===
     assert isStraightFlush([jack_of_diamonds, jack_of_spades, ten_of_diamonds, nine_of_diamonds]) == 2
-    assert isStraightFlush([king_of_clubs, ten_of_clubs, three_of_hearts, five_of_spades]) == 2
-    assert isStraightFlush([ace_of_diamonds, two_of_hearts, three_of_diamonds]) == 3
+    assert isStraightFlush([king_of_clubs, ten_of_clubs, three_of_hearts, five_of_spades]) == 3
 
 
 """

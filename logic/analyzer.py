@@ -81,18 +81,38 @@ def isStraightFlush(card_list):
     cards_values = [card.value for card in card_list if card.suit == mode]
     #Ordenación y eliminación de duplicados
     cards_values = sorted(cards_values)
-    
-    # Para cada valor, veremos cuantos de los siguientes valores están en la mano y escogeremos el que más cerca esté de escalera
-    # e.j: Tenemos un as (1), por lo que se comprueban [2, 3, 4, 5] para ver cuales están en la mano y determinar cuanto queda para
-    # hacer una escalera desde 1
-    for value in cards_values:
-        missing_cards = 4 
-        for next_value in range(value + 1, value + 5):
-            if next_value in cards_values:
-                missing_cards -= 1
-        min_missing_values = min(missing_cards, min_missing_values)
-    
-    return_value = min_missing_values # Para estandarizar nomenclatura
+    # CASO 1: Tenemos un as, por lo que necesitamos comprobar tambien el caso suave (as = 1)
+    if cards_values[-1] == 14: 
+        cards_values_soft = cards_values.copy()
+        cards_values_soft.remove(14)
+        cards_values_soft.insert(0, 1)
+
+        listas_a_comparar = [cards_values, cards_values_soft]
+        minimo = 999 #Numero convenientemente alto para comparar
+        for listas in listas_a_comparar:
+            for value in listas:
+                missing_cards = 4 
+                for next_value in range(value + 1, value + 5):
+                    if next_value in listas:
+                        missing_cards -= 1
+                minimo = min(missing_cards, minimo)
+            if len(card_list) + minimo > 7:
+                return_value = 6
+            else:
+                return_value = minimo # Para estandarizar nomenclatura
+
+    # CASO 2: No tenemos as, por lo que comprobamos normalmente
+    else:
+        for value in cards_values:
+            missing_cards = 4 
+            for next_value in range(value + 1, value + 5):
+                if next_value in cards_values:
+                    missing_cards -= 1
+            min_missing_values = min(missing_cards, min_missing_values)
+        if len(card_list) + min_missing_values > 7:
+            return_value = 6
+        else:
+            return_value = min_missing_values # Para estandarizar nomenclatura
     return return_value
 
 
