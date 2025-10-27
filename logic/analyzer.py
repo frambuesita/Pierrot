@@ -236,12 +236,3 @@ def isPar(card_list):
         return_value = 6
 
     return return_value
-
-def prueba(a, b):
-    return a + b
- 
-            
-    
-    
-    
-

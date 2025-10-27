@@ -142,13 +142,38 @@ def test_isStraightFlush_cases():
     assert isStraightFlush([king_of_clubs, ten_of_clubs, three_of_hearts, five_of_spades]) == 3
 
 
-"""
-def test_isFourOfaKind():
-    # caso/s válido/s
-    assert isFourofaKind([seven_of_clubs, seven_of_diamonds, seven_of_hearts, seven_of_spades, ace_of_diamonds]) == 0
-    # caso/s de prueba en que faltan x cartas
-    assert isFourofaKind([six_of_diamonds, three_of_hearts, three_of_clubs, four_of_clubs]) == 2
 
+def test_isFourOfaKind_cases():
+    # === CASOS PERFECTOS (0) ===
+    assert isFourofaKind([seven_of_clubs, seven_of_diamonds, seven_of_hearts, seven_of_spades, ace_of_diamonds]) == 0
+    assert isFourofaKind([king_of_clubs, king_of_diamonds, king_of_hearts, king_of_spades, two_of_spades, three_of_diamonds]) == 0
+    assert isFourofaKind([ace_of_clubs, ace_of_diamonds, ace_of_hearts, ace_of_spades]) == 0
+
+    # === FALTA 1 CARTA (1) ===
+    assert isFourofaKind([nine_of_clubs, nine_of_diamonds, nine_of_hearts, jack_of_spades]) == 1
+    assert isFourofaKind([two_of_clubs, two_of_diamonds, two_of_spades, five_of_hearts, six_of_diamonds]) == 1
+
+    # === FALTAN 2 CARTAS (2) ===
+    assert isFourofaKind([six_of_diamonds, three_of_hearts, three_of_clubs, four_of_clubs]) == 2
+    assert isFourofaKind([queen_of_hearts, queen_of_clubs, ten_of_spades, two_of_diamonds]) == 2
+    assert isFourofaKind([jack_of_spades, jack_of_diamonds, five_of_clubs, eight_of_hearts, nine_of_diamonds]) == 2
+
+    # === FALTAN 3 CARTAS (3) ===
+    assert isFourofaKind([four_of_clubs, nine_of_spades]) == 3
+    assert isFourofaKind([king_of_diamonds, five_of_diamonds, queen_of_hearts]) == 3
+
+    # === IMPOSIBLE (6) ===
+    assert isFourofaKind([ace_of_clubs, ace_of_diamonds, king_of_hearts, king_of_spades, queen_of_clubs, jack_of_diamonds]) == 6
+    assert isFourofaKind([two_of_spades, three_of_spades, four_of_spades, five_of_spades, six_of_spades, seven_of_spades, eight_of_spades]) == 6
+    assert isFourofaKind([ten_of_hearts, jack_of_hearts, queen_of_hearts, king_of_hearts, ace_of_hearts, two_of_diamonds, three_of_clubs]) == 6
+
+    # === OTROS ===
+    assert isFourofaKind([three_of_clubs, three_of_hearts]) == 2
+    assert isFourofaKind([eight_of_spades, eight_of_clubs, eight_of_hearts]) == 1
+    assert isFourofaKind([four_of_clubs, five_of_clubs, six_of_clubs, seven_of_clubs, eight_of_clubs, nine_of_clubs, ten_of_clubs]) == 6
+
+
+"""
 
 def test_isFullHouse():
     # caso/s válido/s
