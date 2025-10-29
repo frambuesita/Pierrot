@@ -167,18 +167,44 @@ def isFullHouse(card_list):
     return return_value
 
 def isStraight(card_list):
-    card_values = []
-    for card in card_list:
-        card_values.append(card.value)
-        
-    contador = 5
-    card_values.sort()
-    for i in range(len(card_values)-1): #Idea: despues de ordenar, si el valor siguiente - el actual da 1, no hace nada, si no se le resta 1 al contador. El ultimo no se hace
-        if card_values[i+1] - card_values[i] == 1:
-            contador -= 1
-    return_value = contador
-    
+    return_value = 0
+    min_missing_values = 4
 
+    cards_values = [card.value for card in card_list]
+    #Ordenación y eliminación de duplicados
+    cards_values = sorted(cards_values)
+    # CASO 1: Tenemos un as, por lo que necesitamos comprobar tambien el caso suave (as = 1)
+    if cards_values[-1] == 14: 
+        cards_values_soft = cards_values.copy()
+        cards_values_soft.remove(14)
+        cards_values_soft.insert(0, 1)
+
+        listas_a_comparar = [cards_values, cards_values_soft]
+        minimo = 999 #Numero convenientemente alto para comparar
+        for listas in listas_a_comparar:
+            for value in listas:
+                missing_cards = 4 
+                for next_value in range(value + 1, value + 5):
+                    if next_value in listas:
+                        missing_cards -= 1
+                minimo = min(missing_cards, minimo)
+            if len(card_list) + minimo > 7:
+                return_value = 6
+            else:
+                return_value = minimo # Para estandarizar nomenclatura
+
+    # CASO 2: No tenemos as, por lo que comprobamos normalmente
+    else:
+        for value in cards_values:
+            missing_cards = 4 
+            for next_value in range(value + 1, value + 5):
+                if next_value in cards_values:
+                    missing_cards -= 1
+            min_missing_values = min(missing_cards, min_missing_values)
+        if len(card_list) + min_missing_values > 7:
+            return_value = 6
+        else:
+            return_value = min_missing_values # Para estandarizar nomenclatura
     return return_value
 
 def isFlush(card_list):
