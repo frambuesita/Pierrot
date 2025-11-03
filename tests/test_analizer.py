@@ -306,3 +306,8 @@ def test_isPair_cases():
     assert isPair([ace_of_clubs, king_of_hearts, queen_of_clubs, jack_of_diamonds, nine_of_clubs, ten_of_clubs, six_of_clubs]) == 6
     assert isPair([two_of_spades, three_of_spades, four_of_spades, five_of_spades, six_of_spades, seven_of_spades, eight_of_clubs]) == 6
     assert isPair([ten_of_hearts, jack_of_hearts, queen_of_hearts, king_of_hearts, ace_of_hearts, three_of_diamonds, four_of_clubs]) == 6  
+
+def test_analyze_cases():
+    assert analyze([ace_of_clubs, ace_of_diamonds, ace_of_hearts, king_of_spades, king_of_diamonds]) == 80  # Full House
+    assert analyze([two_of_clubs, ace_of_clubs]) == 0
+    

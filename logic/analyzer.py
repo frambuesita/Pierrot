@@ -15,36 +15,41 @@ def load_deck():
     return [card for card in deck.values()]
 
 
-def analyze(hand):
-    #calcular, dado una mano de cartas, la probabilidad de cada tipo de mano
-    royalflush_prob = (1 / isRoyalFlush(hand) * 52) if isRoyalFlush(hand) != 6 else 0
-    straightflush_prob = (1 / isStraightFlush(hand) * 13) if isStraightFlush(hand) != 6 else 0 #Aun tengo que pensar en la probabilidad de que salga carta que cumpla la condicion de straight flush
-    fourofakind_prob = (1 / isFourofaKind(hand) * 13) if isFourofaKind(hand) != 6 else 0
-    fullhouse_prob = (1 / isFullHouse(hand) * 13) if isFullHouse(hand) != 6 else 0
-    flush_prob = (1 / isFlush(hand) * 4) if isFlush(hand) != 6 else 0
-    straight_prob = (1 / isStraight(hand) * 10) if isStraight(hand) != 6 else 0
-    threeofakind_prob = (1 / isThreeofaKind(hand) * 13) if isThreeofaKind(hand) != 6 else 0
-    twopair_prob = (1 / isTwoPairs(hand) * 13) if isTwoPairs(hand) != 6 else 0
-    par_prob = (1 / isPair(hand) * 13) if isPair(hand) != 6 else 0
-    highcard_prob = 1
-
-    #insertar en variables el valor de cada mano completa (asignado a criterio personal)
-    royalflush_value = 100
-    straightflush_value = 100
-    fourofakind_value = 90
-    fullhouse_value = 80
-    flush_value = 60
-    straight_value = 50
-    threeofakind_value = 40
-    twopair_value = 30
-    par_value = 20
-    highcard_value = 0
+def analyze(card_list):
+    value_list = [100, 99, 85, 80, 70, 55, 35, 15, 8, 0]
+    fun_list = [isRoyalFlush(card_list), isStraightFlush(card_list), isFourofaKind(card_list), isFullHouse(card_list),
+                isFlush(card_list), isStraight(card_list), isThreeofaKind(card_list), isTwoPairs(card_list), isPair(card_list), 0]
     
-    total_value = (royalflush_value * royalflush_prob + straightflush_value * straightflush_prob + fourofakind_value * fourofakind_prob + fullhouse_value * fullhouse_prob +
-                   flush_value * flush_prob + straight_value * straight_prob + threeofakind_value * threeofakind_prob + twopair_value * twopair_prob + par_value * par_prob + highcard_value * highcard_prob) / 9
+    compute_list = []
+    for i in range(0, len(fun_list)):
+        if fun_list[i] == 0:
+            compute_list = fun_list[0:(i+1)]
+            break
+    
+    initial_index = len(compute_list) -1
+    initial_value = value_list[initial_index]
 
-    return total_value
+    size_list = [5, 5, 4, 5, 5, 5, 3, 4, 2, 1] 
+    new_list = []
+    for i in range(0, len(compute_list)):
+        if compute_list[i] == 6:
+            new_list.append(0)
+        else:
+            new_list.append(size_list[i] - compute_list[i])
+    
+    extra_value = 0
+    total_to_mean = 0
+    for i in size_list:
+        total_to_mean += i
+    
+    for i in range(0,len(compute_list)):
+        weight = size_list[i] / total_to_mean 
+        extra_value += (value_list[i] - initial_value) * weight
+    
+    return_value = initial_value + extra_value
 
+    return return_value
+            
 def isRoyalFlush(card_list):
     return_value = 0
 

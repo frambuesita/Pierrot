@@ -83,10 +83,8 @@ for i in range(ITERATIONS):
     pb_analisis2.update(i)
     sleep(0.01)
 
-#pierrot_potential = analyze(Pierrot_hand.cards_list)
-#table_potential = analyze(community_hand)
-pierrot_potential = 95
-table_potential = 20
+pierrot_potential = analyze(Pierrot_hand.cards_list)
+table_potential = analyze(community_hand.cards_list)
 print("\n[SISTEMA] Análisis completo.")
 print("Potencial de la mano de Pierrot: ", pierrot_potential, "%.")
 print("Potencial de la mano comunitaria: ", table_potential, "%.\n")
