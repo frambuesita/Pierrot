@@ -46,6 +46,7 @@ def analyze(card_list):
         weight = size_list[i] / total_to_mean 
         extra_value += (value_list[i] - initial_value) * weight
     
+    extra_value = extra_value / 4
     return_value = initial_value + extra_value
 
     return return_value
