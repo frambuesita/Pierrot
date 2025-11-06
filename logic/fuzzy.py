@@ -31,23 +31,23 @@ bet['highest'] = fuzz.trimf(bet.universe, [80, 100, 100])
 # Define fuzzy rules
 
 # Rules for 'lowest' pierrot_potential
-rule_lowest_lowest = ctrl.Rule(pierrot_potential['lowest'] & rival_danger['lowest'], bet['low'])
+rule_lowest_lowest = ctrl.Rule(pierrot_potential['lowest'] & rival_danger['lowest'], bet['lowest'])
 rule_lowest_low = ctrl.Rule(pierrot_potential['lowest'] & rival_danger['low'], bet['lowest'])
 rule_lowest_medium = ctrl.Rule(pierrot_potential['lowest'] & rival_danger['medium'], bet['lowest'])
 rule_lowest_high = ctrl.Rule(pierrot_potential['lowest'] & rival_danger['high'], bet['lowest'])
 rule_lowest_highest = ctrl.Rule(pierrot_potential['lowest'] & rival_danger['highest'], bet['lowest'])
 
 # Rules for 'low' pierrot_potential
-rule_low_lowest = ctrl.Rule(pierrot_potential['low'] & rival_danger['lowest'], bet['medium'])
+rule_low_lowest = ctrl.Rule(pierrot_potential['low'] & rival_danger['lowest'], bet['low'])
 rule_low_low = ctrl.Rule(pierrot_potential['low'] & rival_danger['low'], bet['low'])
-rule_low_medium = ctrl.Rule(pierrot_potential['low'] & rival_danger['medium'], bet['low'])
+rule_low_medium = ctrl.Rule(pierrot_potential['low'] & rival_danger['medium'], bet['lowest'])
 rule_low_high = ctrl.Rule(pierrot_potential['low'] & rival_danger['high'], bet['lowest'])
 rule_low_highest = ctrl.Rule(pierrot_potential['low'] & rival_danger['highest'], bet['lowest'])
 
 # Rules for 'medium' pierrot_potential
-rule_medium_lowest = ctrl.Rule(pierrot_potential['medium'] & rival_danger['lowest'], bet['high'])
+rule_medium_lowest = ctrl.Rule(pierrot_potential['medium'] & rival_danger['lowest'], bet['medium'])
 rule_medium_low = ctrl.Rule(pierrot_potential['medium'] & rival_danger['low'], bet['medium'])
-rule_medium_medium = ctrl.Rule(pierrot_potential['medium'] & rival_danger['medium'], bet['medium'])
+rule_medium_medium = ctrl.Rule(pierrot_potential['medium'] & rival_danger['medium'], bet['low'])
 rule_medium_high = ctrl.Rule(pierrot_potential['medium'] & rival_danger['high'], bet['low'])
 rule_medium_highest = ctrl.Rule(pierrot_potential['medium'] & rival_danger['highest'], bet['lowest'])
 
